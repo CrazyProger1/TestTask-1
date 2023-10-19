@@ -3,8 +3,7 @@ from rest_framework import serializers
 
 from .services.db import (
     get_all_groups,
-    change_user_group,
-    get_user_group
+    change_user_group
 )
 
 from .models import (
@@ -12,22 +11,32 @@ from .models import (
 )
 
 
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('id', 'name', 'description')
+
+
 class UserSerializer(serializers.ModelSerializer):
-    group = serializers.PrimaryKeyRelatedField(queryset=get_all_groups(), allow_null=True)
+    group = serializers.PrimaryKeyRelatedField(
+        queryset=get_all_groups(),
+        required=True,
+        write_only=True
+    )
+
+    created = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('username', 'created', 'group')
-
-    created = serializers.SerializerMethodField()
 
     def get_created(self, obj):
         return obj.date_joined
 
     def to_representation(self, instance):
         data = super(UserSerializer, self).to_representation(instance)
+        group = instance.group_set.first()
 
-        group = get_user_group(instance)
         if group:
             data['group'] = group.pk
         return data
@@ -35,22 +44,19 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         group = validated_data.pop('group', None)
         user = super(UserSerializer, self).create(validated_data)
-
         if group:
-            change_user_group(user=user, group=group)
-
+            change_user_group(
+                user=user,
+                group=group
+            )
         return user
 
     def update(self, user, validated_data):
         group = validated_data.pop('group', None)
 
         if group:
-            change_user_group(user=user, group=group)
-
+            change_user_group(
+                user=user,
+                group=group
+            )
         return super(UserSerializer, self).update(user, validated_data)
-
-
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('id', 'name', 'description')

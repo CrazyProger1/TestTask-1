@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 from .constants import (
     GROUP_NAME_LENGTH,
@@ -10,19 +10,14 @@ from .constants import (
 class Group(models.Model):
     name = models.CharField(
         max_length=GROUP_NAME_LENGTH,
-        verbose_name='Group name'
+        verbose_name='Group name',
+        null=False
     )
     description = models.CharField(
         max_length=GROUP_DESCRIPTION_LENGTH,
-        verbose_name='Group description'
+        verbose_name='Group description',
+        null=False
     )
 
-
-class UserGroup(models.Model):
-    user = models.ForeignKey(User, models.CASCADE)
-    group = models.ForeignKey(Group, models.CASCADE)
-
-    class Meta:
-        unique_together = [
-            ('user', 'group'),
-        ]
+    # ManyToMany is used to be able to add 
+    users = models.ManyToManyField(User, related_name='group_set', blank=True)
