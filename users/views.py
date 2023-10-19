@@ -5,13 +5,13 @@ from .services.db import (
     get_all_groups
 )
 from .serializers import (
-    CurrentUserSerializer,
+    UserSerializer,
     GroupSerializer
 )
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = CurrentUserSerializer
+    serializer_class = UserSerializer
     queryset = get_all_users()
 
 
