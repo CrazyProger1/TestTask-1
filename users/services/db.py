@@ -1,6 +1,9 @@
-from django.contrib.auth.models import User
 
-from users.models import Group
+
+from users.models import (
+    Group,
+    User
+)
 
 
 def get_all_users():

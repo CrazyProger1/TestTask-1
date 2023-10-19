@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 from .constants import (
     GROUP_NAME_LENGTH,
@@ -16,3 +17,12 @@ class Group(models.Model):
         verbose_name='Group description'
     )
 
+
+class UserGroup(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    group = models.ForeignKey(Group, models.CASCADE)
+
+    class Meta:
+        unique_together = [
+            ('user', 'group'),
+        ]
