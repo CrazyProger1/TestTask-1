@@ -1,15 +1,20 @@
 from rest_framework import viewsets
-from django.contrib.auth.models import User
 
-from .serializers import CurrentUserSerializer, GroupSerializer
-from .models import Group
+from .services.db import (
+    get_all_users,
+    get_all_groups
+)
+from .serializers import (
+    CurrentUserSerializer,
+    GroupSerializer
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = CurrentUserSerializer
-    queryset = User.objects.all()
+    queryset = get_all_users()
 
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
-    queryset = Group.objects.all()
+    queryset = get_all_groups()
