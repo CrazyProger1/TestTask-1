@@ -1,15 +1,14 @@
-FROM python:3.10
+FROM python:3.11
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+RUN mkdir /test_task
 
-WORKDIR /usr/src/test_task
+WORKDIR /test_task
 
-COPY requirements/requirements_deploy.txt /usr/src/requirements_deploy.txt
+COPY requirements/prod.txt .
 
-RUN pip install -r /usr/src/requirements_deploy.txt
+RUN pip install -r prod.txt
 
-COPY . /usr/src/test_task
+COPY . .
 
 EXPOSE 8000
 
