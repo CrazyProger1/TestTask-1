@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import UserItem from "./UserItem";
+import {Table} from "react-bootstrap";
+import UserModal from "./UserModal";
 
 
 const UserTable = () => {
@@ -30,7 +32,7 @@ const UserTable = () => {
 
 
     return (
-        <table className="table">
+        <Table striped bordered hover>
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -44,8 +46,9 @@ const UserTable = () => {
             {users.map((user, index) =>
                 <UserItem user={user} editUser={editUser} number={index + 1} key={user.id}/>
             )}
+            <UserModal heading="Edit user"/>
+        </Table>
 
-        </table>
     );
 };
 
