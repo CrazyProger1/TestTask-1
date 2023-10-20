@@ -3,7 +3,8 @@ from rest_framework import serializers
 
 from .services.db import (
     get_all_groups,
-    change_user_group
+    change_user_group,
+    get_user_current_group
 )
 
 from .models import (
@@ -33,10 +34,9 @@ class UserSerializer(serializers.ModelSerializer):
     def get_created(self, obj):
         return obj.date_joined
 
-    def to_representation(self, instance):
-        data = super(UserSerializer, self).to_representation(instance)
-        group = instance.group_set.first()
-
+    def to_representation(self, user: User):
+        data = super(UserSerializer, self).to_representation(user)
+        group = get_user_current_group(user)
         if group:
             data['group'] = group.pk
         return data
@@ -44,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         group = validated_data.pop('group', None)
         user = super(UserSerializer, self).create(validated_data)
+
         if group:
             change_user_group(
                 user=user,
