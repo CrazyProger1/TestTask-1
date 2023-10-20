@@ -19,5 +19,5 @@ class Group(models.Model):
         null=False
     )
 
-    # ManyToMany is used to be able to add 
+    # ManyToMany is used to be able to add multiple groups to a user in the future.
     users = models.ManyToManyField(User, related_name='group_set', blank=True)

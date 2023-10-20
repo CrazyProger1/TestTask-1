@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
 
-    'users.apps.UsersConfig',
-    'docs.apps.DocsConfig'
+    'apps.users.apps.UsersConfig',
+    'apps.docs.apps.DocsConfig'
 ]
 
 MIDDLEWARE = [

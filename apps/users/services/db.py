@@ -1,4 +1,4 @@
-from users.models import (
+from apps.users.models import (
     Group,
     User
 )
