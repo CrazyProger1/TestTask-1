@@ -1,10 +1,13 @@
 import React from 'react';
 
-const UserItem = () => {
+const UserItem = ({user, ...props}) => {
     return (
-        <div>
-            
-        </div>
+            <tr>
+                <td>{user.id}</td>
+                <td>{user.username}</td>
+                <td>{user.created}</td>
+                <td>{user.group}</td>
+            </tr>
     );
 };
 
