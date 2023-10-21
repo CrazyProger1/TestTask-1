@@ -1,46 +1,40 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
+import {deleteUser, getUsers} from '../services/api/user'
 
 class UserStore {
-    users = [
-        {
-            id: 1,
-            username: 'crazyproger1',
-            created: '18.10.2023',
-            group: 'Users',
-        },
-        {
-            id: 2,
-            username: 'testuser',
-            created: '30.10.2040',
-            group: 'Users',
-        },
-        {
-            id: 3,
-            username: 'admin',
-            created: '12.11.2023',
-            group: 'Admins',
-        },
-    ]
+    users = []
 
     constructor() {
-        makeAutoObservable(this)
+        makeObservable(this,
+            {
+                users: observable,
+                loadUsers: action,
+                createUser: action,
+                updateUser: action,
+                deleteUser: action
+            }
+        )
     }
 
-    getUsers() {
-        return this.users
-    }
-
-
-    addUser(user) {
+    createUser(user) {
         this.users.push(user)
     }
 
-    deleteUser(user) {
+    async loadUsers() {
+        this.users = await getUsers();
+    }
+
+
+    async updateUser(user) {
 
     }
 
-    updateUser(user) {
-
+    async deleteUser(user) {
+        deleteUser(user).then(() => {
+            this.users = this.users.filter((element) => {
+                return user.id !== element.id;
+            })
+        })
     }
 
 

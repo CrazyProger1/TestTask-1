@@ -1,23 +1,41 @@
-import React from 'react';
 import {Link} from "react-router-dom";
 
 import {Nav} from "react-bootstrap";
+import uiStore from "../../store/UIStore";
 
 const Header = () => {
     return (
-        <div>
-            <Nav variant="tabs" defaultActiveKey="/home">
-                <Nav.Item>
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link as={Link} to="/users">Users</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link as={Link} to="/groups">Groups</Nav.Link>
-                </Nav.Item>
-            </Nav>
-        </div>
+        <Nav
+            variant="tabs"
+            activeKey={uiStore.currentPage}
+            onSelect={eventKey => uiStore.setPage(eventKey)}>
+
+            <Nav.Item>
+                <Nav.Link
+                    as={Link}
+                    eventKey="link-1"
+                    to="/">
+                    Home
+                </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link
+                    as={Link}
+                    eventKey="link-2"
+                    to="/users">
+                    Users
+                </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link
+                    as={Link}
+                    eventKey="link-3"
+                    to="/groups">
+                    Groups
+                </Nav.Link>
+
+            </Nav.Item>
+        </Nav>
     );
 };
 

@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'created', 'group')
+        fields = ('id', 'username', 'created', 'group')
 
     def get_created(self, obj):
         return obj.date_joined
