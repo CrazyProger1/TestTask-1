@@ -11,7 +11,8 @@ class Group(models.Model):
     name = models.CharField(
         max_length=GROUP_NAME_LENGTH,
         verbose_name='Group name',
-        null=False
+        null=False,
+        unique=True
     )
     description = models.CharField(
         max_length=GROUP_DESCRIPTION_LENGTH,

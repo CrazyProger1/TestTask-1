@@ -12,6 +12,10 @@ def get_all_groups():
     return Group.objects.all()
 
 
+def count_users_in_group(group: Group) -> int:
+    return group.users.count()
+
+
 def get_user_current_group(user: User) -> Group | None:
     return user.group_set.first()
 

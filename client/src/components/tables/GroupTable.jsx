@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Table} from "react-bootstrap";
 
 import GroupItem from "../items/GroupItem";
 import groupStore from "../../store/GroupStore";
 import {observer} from "mobx-react"
+import GroupModal from "../modals/GroupModal";
 
 
 const GroupTable = observer(() => {
@@ -11,9 +12,21 @@ const GroupTable = observer(() => {
         groupStore.loadGroups();
     }, [])
 
+    const [modalState, setModalState] = useState({
+        heading: "Create",
+        action: "Create",
+        show: false,
+        group: null
+    })
+
 
     const handleEditButtonClick = (group) => {
-
+        setModalState({
+            show: true,
+            group: group,
+            heading: "Edit",
+            action: "Save Changes",
+        })
     }
 
 
@@ -22,7 +35,29 @@ const GroupTable = observer(() => {
 
 
     const handleCreateButtonClick = () => {
+        setModalState({
+            show: true,
+            heading: "Create",
+            action: "Create",
+            group: null
+        })
+    }
 
+    const hideModal = () => {
+        setModalState({...modalState, show: false})
+    }
+
+    const handleModalCancel = () =>
+        hideModal()
+
+
+    const handleModalAction = (group) => {
+        hideModal()
+
+        if (modalState.heading === "Create")
+            groupStore.createGroup(group)
+        else
+            groupStore.updateGroup(group)
     }
 
 
@@ -52,6 +87,11 @@ const GroupTable = observer(() => {
             <Button size="lg" onClick={handleCreateButtonClick}>
                 Add Group
             </Button>
+            <GroupModal
+                {...modalState}
+                onCancel={handleModalCancel}
+                onAction={handleModalAction}
+            />
         </div>
     );
 });
