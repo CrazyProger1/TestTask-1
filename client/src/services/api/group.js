@@ -19,17 +19,17 @@ export const getGroups = async (offset, limit) => {
 
 export const updateGroup = async (id, group) => {
     return await makeRequest({
-        method: "UPDATE",
-        url: `/groups/${id}`,
+        method: "PUT",
+        url: `/groups/${id}/`,
         data: group
     })
 }
 
 export const deleteGroup = async (id) => {
-    return await makeRequest(
-        "DELETE",
-        `/groups/${id}`
-    )
+    return await makeRequest({
+        method: "DELETE",
+        url: `/groups/${id}/`
+    })
 }
 
 

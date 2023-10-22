@@ -1,5 +1,5 @@
 import {action, makeObservable, observable} from "mobx";
-import {deleteUser, getUsers} from '../services/api/user'
+import {createUser, deleteUser, getUsers, updateUser,} from '../services/api/user'
 
 class UserStore {
     users = []
@@ -17,24 +17,46 @@ class UserStore {
     }
 
     async createUser(user) {
-        this.users.push(user)
+        await createUser(user)
+            .then(result => {
+                if (result.status === 201) {
+                    this.users.push(result.data)
+                }
+            })
     }
 
-    async loadUsers() {
-        this.users = await getUsers();
+    async loadUsers(page = 0, pageSize = 20) {
+        await getUsers(page * pageSize, pageSize)
+            .then(result => {
+                if (result.status === 200)
+                    this.users = result.data.results;
+                else
+                    this.users = []
+            })
     }
 
 
     async updateUser(user) {
-
+        await updateUser(
+            user.id,
+            user
+        ).then((result) => {
+            if (result.status === 200) {
+                let item = this.users.find(x => x.id === user.id);
+                let idx = this.users.indexOf(item)
+                this.users[idx] = result.data;
+            }
+        })
     }
 
     async deleteUser(user) {
-        deleteUser(user).then(() => {
-            this.users = this.users.filter((element) => {
-                return user.id !== element.id;
+        await deleteUser(user.id)
+            .then((result) => {
+                if (result.status === 204 || result.status === 404)
+                    this.users = this.users.filter((item) => {
+                        return user.id !== item.id;
+                    })
             })
-        })
     }
 
 

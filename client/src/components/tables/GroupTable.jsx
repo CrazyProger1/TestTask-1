@@ -19,14 +19,32 @@ const GroupTable = observer(() => {
         group: null
     })
 
+    const hideModal = () =>
+        setModalState({...modalState, show: false})
 
-    const handleEditButtonClick = (group) => {
+    const showModal = (heading, action, group) =>
         setModalState({
             show: true,
             group: group,
-            heading: "Edit",
-            action: "Save Changes",
+            heading: heading,
+            action: action,
         })
+
+
+    const showErrors = (errors) =>
+        setModalState({
+            ...modalState,
+            show: true,
+            errors: errors
+        })
+
+
+    const handleEditButtonClick = (group) => {
+        showModal(
+            "Edit",
+            "Save Changes",
+            group,
+        )
     }
 
 
@@ -35,17 +53,12 @@ const GroupTable = observer(() => {
 
 
     const handleCreateButtonClick = () => {
-        setModalState({
-            show: true,
-            heading: "Create",
-            action: "Create",
-            group: null
-        })
+        showModal(
+            "Create",
+            "Create",
+        )
     }
 
-    const hideModal = () => {
-        setModalState({...modalState, show: false})
-    }
 
     const handleModalCancel = () =>
         hideModal()
@@ -55,9 +68,11 @@ const GroupTable = observer(() => {
         hideModal()
 
         if (modalState.heading === "Create")
-            groupStore.createGroup(group)
+            groupStore.createGroup(group).catch(errors => showErrors(errors))
         else
-            groupStore.updateGroup(group)
+            groupStore.updateGroup(group).catch(errors => showErrors(errors))
+
+
     }
 
 

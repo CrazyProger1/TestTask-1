@@ -9,39 +9,72 @@ import UserModal from "../modals/UserModal";
 
 
 const UserTable = observer(() => {
-    const [modalShow, setModalShow] = useState(false);
-    const [modalHeading, setModalHeading] = useState("")
-    const [modalAction, setModalAction] = useState("")
-
     useEffect(() => {
         userStore.loadUsers();
     }, [])
 
+    const [modalState, setModalState] = useState({
+        heading: "Create",
+        action: "Create",
+        show: false,
+        user: null
+    })
+
+    const hideModal = () =>
+        setModalState({...modalState, show: false})
+
+    const showModal = (heading, action, user) =>
+        setModalState({
+            show: true,
+            user: user,
+            heading: heading,
+            action: action,
+        })
+
+
+    const showErrors = (errors) =>
+        setModalState({
+            ...modalState,
+            show: true,
+            errors: errors
+        })
+
 
     const handleEditButtonClick = (user) => {
-        setModalShow(true);
-        setModalHeading("Edit")
-        setModalAction("Save Changes")
+        showModal(
+            "Edit",
+            "Save Changes",
+            user,
+        )
     }
+
+
+    const handleDeleteButtonClick = (user) =>
+        userStore.deleteUser(user)
+
 
     const handleCreateButtonClick = () => {
-        setModalShow(true);
-        setModalHeading("Create")
-        setModalAction("Create")
-    }
-
-    const handleDeleteButtonClick = (user) => {
-        userStore.deleteUser(user)
+        showModal(
+            "Create",
+            "Create",
+        )
     }
 
 
-    const handleModalClose = () => {
-        setModalShow(false);
-    }
+    const handleModalCancel = () =>
+        hideModal()
 
 
-    const handleUserAction = (user) => {
-        console.log(user)
+    const handleModalAction = (user) => {
+        hideModal()
+
+
+        if (modalState.heading === "Create")
+            userStore.createUser(user).catch(errors => showErrors(errors))
+        else
+            userStore.updateUser(user).catch(errors => showErrors(errors))
+
+
     }
 
 
@@ -63,7 +96,7 @@ const UserTable = observer(() => {
                         number={index + 1}
                         user={user}
                         onDelete={handleDeleteButtonClick}
-                        onEdit={event => handleEditButtonClick(user)}
+                        onEdit={handleEditButtonClick}
                         key={user.id}
                     />
                 )}
@@ -73,12 +106,9 @@ const UserTable = observer(() => {
                 Add User
             </Button>
             <UserModal
-                show={modalShow}
-                action={modalAction}
-                heading={modalHeading}
-                onAction={handleUserAction}
-                onClose={handleModalClose}
-                user={null}
+                {...modalState}
+                onCancel={handleModalCancel}
+                onAction={handleModalAction}
             />
         </div>
 

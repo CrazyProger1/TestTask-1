@@ -20,8 +20,9 @@ class GroupStore {
     async createGroup(group) {
         await createGroup(group)
             .then(result => {
-                if (result.status === 201)
+                if (result.status === 201) {
                     this.groups.push(result.data)
+                }
             })
     }
 
@@ -42,7 +43,9 @@ class GroupStore {
             group
         ).then((result) => {
             if (result.status === 200) {
-
+                let item = this.groups.find(x => x.id === group.id);
+                let idx = this.groups.indexOf(item)
+                this.groups[idx] = result.data;
             }
         })
     }
@@ -51,8 +54,8 @@ class GroupStore {
         await deleteGroup(group.id)
             .then((result) => {
                 if (result.status === 204 || result.status === 404)
-                    this.groups = this.groups.filter((element) => {
-                        return group.id !== element.id;
+                    this.groups = this.groups.filter((item) => {
+                        return group.id !== item.id;
                     })
             })
     }
