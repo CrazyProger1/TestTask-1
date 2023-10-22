@@ -12,34 +12,31 @@ const UserTable = observer(() => {
     const [modalShow, setModalShow] = useState(false);
     const [modalHeading, setModalHeading] = useState("")
     const [modalAction, setModalAction] = useState("")
-    const [currentUser, setCurrentUser] = useState({})
 
     useEffect(() => {
         userStore.loadUsers();
     }, [])
 
 
-    const handleUserEditButtonClick = (user) => {
+    const handleEditButtonClick = (user) => {
         setModalShow(true);
         setModalHeading("Edit")
         setModalAction("Save Changes")
-        setCurrentUser(user);
     }
 
-    const handleUserCreateButtonClick = () => {
+    const handleCreateButtonClick = () => {
         setModalShow(true);
         setModalHeading("Create")
         setModalAction("Create")
-        setCurrentUser({})
+    }
+
+    const handleDeleteButtonClick = (user) => {
+        userStore.deleteUser(user)
     }
 
 
     const handleModalClose = () => {
         setModalShow(false);
-    }
-
-    const handleUserDelete = (user) => {
-        userStore.deleteUser(user)
     }
 
 
@@ -65,15 +62,15 @@ const UserTable = observer(() => {
                     <UserItem
                         number={index + 1}
                         user={user}
-                        onDelete={handleUserDelete}
-                        onEdit={event => handleUserEditButtonClick(user)}
+                        onDelete={handleDeleteButtonClick}
+                        onEdit={event => handleEditButtonClick(user)}
                         key={user.id}
                     />
                 )}
                 </tbody>
             </Table>
-            <Button size="lg" onClick={handleUserCreateButtonClick}>
-                Create
+            <Button size="lg" onClick={handleCreateButtonClick}>
+                Add User
             </Button>
             <UserModal
                 show={modalShow}
@@ -81,7 +78,7 @@ const UserTable = observer(() => {
                 heading={modalHeading}
                 onAction={handleUserAction}
                 onClose={handleModalClose}
-                user={{...currentUser}}
+                user={null}
             />
         </div>
 

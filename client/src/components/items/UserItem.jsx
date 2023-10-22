@@ -1,24 +1,18 @@
 import React from 'react';
-import Button from "react-bootstrap/Button";
-import {ButtonGroup} from "react-bootstrap";
+import Actions from "./Actions";
 
-const UserItem = ({number, user, onDelete, onEdit, ...props}) => {
+const UserItem = ({number, user, onEdit, onDelete, ...props}) => {
     return (
         <tr>
             <td>{number}</td>
             <td>{user.username}</td>
             <td>{user.created}</td>
-            <td>{user.group}</td>
+            <td>{user.group === undefined ? null : user.group.name}</td>
             <td>
-                <ButtonGroup size="sm" className="mb-2">
-                    <Button onClick={event => onEdit(user)}>
-                        Edit
-                    </Button>
-                    <Button onClick={event => onDelete(user)}>
-                        Delete
-                    </Button>
-                </ButtonGroup>
-
+                <Actions
+                    onEdit={() => onEdit(user)}
+                    onDelete={() => onDelete(user)}
+                />
             </td>
         </tr>
     );

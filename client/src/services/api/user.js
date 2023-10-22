@@ -1,4 +1,4 @@
-import configuredAxios from "./api";
+import {configuredAxios, formResponse} from "./api";
 
 
 export const getUsers = async () => {
@@ -9,10 +9,6 @@ export const getUsers = async () => {
         .catch(function (error) {
             console.log(error);
         })
-        .finally(function () {
-
-        });
-
 }
 
 
@@ -24,7 +20,4 @@ export const deleteUser = async (user) => {
         .catch(function (error) {
             console.log(error);
         })
-        .finally(function () {
-
-        });
 }
