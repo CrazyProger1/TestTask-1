@@ -3,43 +3,31 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import {Dropdown, DropdownButton} from "react-bootstrap";
+import groupStore from "../../store/GroupStore";
 
-const UserModal = ({heading, show, closeCallback, action, actionCallback, ...props}) => {
-    const [currentGroup, setCurrentGroup] = useState("Group 1")
-    const [groups, setGroups] = useState([
-        {
-            id: 1,
-            name: 'Group 1',
-            description: 'Desc of group 1'
-        },
-        {
-            id: 2,
-            name: 'Group 2',
-            description: 'Desc of group 2'
-        },
-        {
-            id: 3,
-            name: 'Group 3',
-            description: 'Desc of group 3'
-        }
-    ]);
+const UserModal = ({heading, show, action, onAction, onClose, user, ...props}) => {
+    const [currentGroup, setCurrentGroup] = useState({
+        id: null,
+        name: null,
+        description: null
+    })
+    const [username, setUsername] = useState(user !== null ? user.username : null)
 
-    const [username, setUsername] = useState("")
 
-    const onGroupChoose = (group) => {
-        setCurrentGroup(group.name)
-    }
+    const handleGroupChoose = (group) =>
+        setCurrentGroup({...group})
 
-    const onAction = () => {
-        actionCallback({
+
+    const handleAction = () =>
+        onAction({
             "username": username,
             "group": currentGroup
         })
-    }
+
 
     return (
         <div>
-            <Modal show={show} onHide={closeCallback}>
+            <Modal show={show} onHide={onClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{heading}</Modal.Title>
                 </Modal.Header>
@@ -57,10 +45,10 @@ const UserModal = ({heading, show, closeCallback, action, actionCallback, ...pro
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Group</Form.Label>
-                            <DropdownButton id="dropdown-basic-button" title={currentGroup}>
-                                {groups.map((group, index) =>
+                            <DropdownButton id="dropdown-basic-button" title={currentGroup.name}>
+                                {groupStore.groups.map(group =>
                                     <Dropdown.Item
-                                        onClick={event => onGroupChoose(group)}>
+                                        onClick={event => handleGroupChoose(group)}>
                                         {group.name}
                                     </Dropdown.Item>
                                 )}
@@ -71,10 +59,10 @@ const UserModal = ({heading, show, closeCallback, action, actionCallback, ...pro
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeCallback}>
+                    <Button variant="secondary" onClick={onClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={onAction}>
+                    <Button variant="primary" onClick={handleAction}>
                         {action}
                     </Button>
                 </Modal.Footer>

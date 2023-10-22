@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
         data = super(UserSerializer, self).to_representation(user)
         group = get_user_current_group(user)
         if group:
-            data['group'] = group.pk
+            data['group'] = GroupSerializer(group).data
         return data
 
     def create(self, validated_data):

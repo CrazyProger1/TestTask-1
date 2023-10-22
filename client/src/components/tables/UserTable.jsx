@@ -1,28 +1,52 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {observer} from "mobx-react"
 import {Button, Table} from "react-bootstrap";
 
 import userStore from "../../store/UserStore";
 import UserItem from "../items/UserItem";
+import UserModal from "../modals/UserModal";
 
 
 const UserTable = observer(() => {
+    const [modalShow, setModalShow] = useState(false);
+    const [modalHeading, setModalHeading] = useState("")
+    const [modalAction, setModalAction] = useState("")
+    const [currentUser, setCurrentUser] = useState({})
+
     useEffect(() => {
         userStore.loadUsers();
     }, [])
+
+
+    const handleUserEditButtonClick = (user) => {
+        setModalShow(true);
+        setModalHeading("Edit")
+        setModalAction("Save Changes")
+        setCurrentUser(user);
+    }
+
+    const handleUserCreateButtonClick = () => {
+        setModalShow(true);
+        setModalHeading("Create")
+        setModalAction("Create")
+        setCurrentUser({})
+    }
+
+
+    const handleModalClose = () => {
+        setModalShow(false);
+    }
 
     const handleUserDelete = (user) => {
         userStore.deleteUser(user)
     }
 
-    const handleUserEdit = (user) => {
 
+    const handleUserAction = (user) => {
+        console.log(user)
     }
 
-    const handleUserCreate = () => {
-
-    }
 
     return (
         <div>
@@ -42,15 +66,23 @@ const UserTable = observer(() => {
                         number={index + 1}
                         user={user}
                         onDelete={handleUserDelete}
-                        onEdit={handleUserEdit}
+                        onEdit={event => handleUserEditButtonClick(user)}
                         key={user.id}
                     />
                 )}
                 </tbody>
             </Table>
-            <Button size="lg" onClick={handleUserCreate}>
+            <Button size="lg" onClick={handleUserCreateButtonClick}>
                 Create
             </Button>
+            <UserModal
+                show={modalShow}
+                action={modalAction}
+                heading={modalHeading}
+                onAction={handleUserAction}
+                onClose={handleModalClose}
+                user={{...currentUser}}
+            />
         </div>
 
     );

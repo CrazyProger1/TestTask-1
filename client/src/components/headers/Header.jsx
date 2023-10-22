@@ -13,7 +13,7 @@ const Header = () => {
             <Nav.Item>
                 <Nav.Link
                     as={Link}
-                    eventKey="link-1"
+                    eventKey="/"
                     to="/">
                     Home
                 </Nav.Link>
@@ -21,7 +21,7 @@ const Header = () => {
             <Nav.Item>
                 <Nav.Link
                     as={Link}
-                    eventKey="link-2"
+                    eventKey="/users"
                     to="/users">
                     Users
                 </Nav.Link>
@@ -29,7 +29,7 @@ const Header = () => {
             <Nav.Item>
                 <Nav.Link
                     as={Link}
-                    eventKey="link-3"
+                    eventKey="/groups"
                     to="/groups">
                     Groups
                 </Nav.Link>

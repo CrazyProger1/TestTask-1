@@ -1,7 +1,7 @@
 import {action, makeObservable, observable} from "mobx";
 
 class UIStore {
-    currentPage = 'link-1'
+    currentPage = '/'
 
     constructor() {
         makeObservable(this,

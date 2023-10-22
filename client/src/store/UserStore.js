@@ -16,7 +16,7 @@ class UserStore {
         )
     }
 
-    createUser(user) {
+    async createUser(user) {
         this.users.push(user)
     }
 
