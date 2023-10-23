@@ -7,7 +7,7 @@ const MainPage = () =>
         <h1>About</h1>
         <p>
             Test task for VNV Solutions.
-            Simple two-page website for administering users and groups.
+            Simple two-page website to administrate users and groups.
         </p>
     </PageWrapper>
 
