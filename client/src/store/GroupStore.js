@@ -22,7 +22,8 @@ class GroupStore {
             .then(result => {
                 if (result.status === 201) {
                     this.groups.push(result.data)
-                }
+                } else
+                    throw {errors: result.data};
             })
     }
 
@@ -46,7 +47,8 @@ class GroupStore {
                 let item = this.groups.find(x => x.id === group.id);
                 let idx = this.groups.indexOf(item)
                 this.groups[idx] = result.data;
-            }
+            } else
+                throw {errors: result.data};
         })
     }
 

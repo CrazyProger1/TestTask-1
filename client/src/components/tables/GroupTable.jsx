@@ -13,18 +13,25 @@ const GroupTable = observer(() => {
         groupStore.loadGroups();
     }, [])
 
-    const [modalState, setModalState] = useState({
+    const [createEditModalState, setCreateEditModalState] = useState({
         heading: "Create",
         action: "Create",
         show: false,
         group: null
     })
+    const [errorModalState, setErrorModalState] = useState({
+        heading: "Error",
+        errors: [],
+        show: false,
+    })
 
-    const hideModal = () =>
-        setModalState({...modalState, show: false})
 
-    const showModal = (heading, action, group) =>
-        setModalState({
+    // Modals
+    const hideCreateEditModal = () =>
+        setCreateEditModalState({...createEditModalState, show: false})
+
+    const showCreateEditModal = (heading, action, group) =>
+        setCreateEditModalState({
             show: true,
             group: group,
             heading: heading,
@@ -33,11 +40,24 @@ const GroupTable = observer(() => {
 
 
     const showErrorModal = (errors) => {
-
+        setErrorModalState({
+            ...errorModalState,
+            errors: errors,
+            show: true,
+        })
     }
 
+    const hideErrorModal = () => {
+        setErrorModalState({
+            ...errorModalState,
+            show: false,
+        })
+    }
+
+
+    // Handlers
     const handleEditButtonClick = (group) => {
-        showModal(
+        showCreateEditModal(
             "Edit",
             "Save Changes",
             group,
@@ -50,24 +70,20 @@ const GroupTable = observer(() => {
 
 
     const handleCreateButtonClick = () => {
-        showModal(
+        showCreateEditModal(
             "Create",
             "Create",
         )
     }
 
 
-    const handleModalCancel = () =>
-        hideModal()
-
-
     const handleModalAction = (group) => {
-        hideModal()
+        hideCreateEditModal()
 
-        if (modalState.heading === "Create")
-            groupStore.createGroup(group).catch(errors => showErrorModal(errors))
+        if (createEditModalState.heading === "Create")
+            groupStore.createGroup(group).catch(error => showErrorModal(error.errors))
         else
-            groupStore.updateGroup(group).catch(errors => showErrorModal(errors))
+            groupStore.updateGroup(group).catch(error => showErrorModal(error.errors))
 
 
     }
@@ -100,9 +116,13 @@ const GroupTable = observer(() => {
                 Add Group
             </Button>
             <GroupModal
-                {...modalState}
-                onCancel={handleModalCancel}
+                {...createEditModalState}
+                onCancel={hideCreateEditModal}
                 onAction={handleModalAction}
+            />
+            <ErrorModal
+                {...errorModalState}
+                onClose={hideErrorModal}
             />
         </div>
     );
