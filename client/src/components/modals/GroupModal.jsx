@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import BaseModal from "./BaseModal";
+import CreateEditModal from "./CreateEditModal";
 import Form from "react-bootstrap/Form";
 
 
@@ -25,7 +25,7 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
     }
 
     return (
-        <BaseModal
+        <CreateEditModal
             heading={heading}
             show={show}
             onAction={handleSubmit}
@@ -34,22 +34,24 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
 
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Group name</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
                         type="name"
-                        placeholder="Group name"
+                        placeholder="Name"
                         autoFocus
                         value={currGroupName}
                         onChange={e => setGroupName(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Group name</Form.Label>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Description</Form.Label>
                     <Form.Control
                         required
                         type="text"
-                        placeholder="Group description"
+                        rows={3}
+                        as="textarea"
+                        placeholder="Description"
                         autoFocus
                         value={currGroupDesc}
                         onChange={e => setGroupDesc(e.target.value)}
@@ -57,7 +59,7 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
                 </Form.Group>
             </Form>
 
-        </BaseModal>
+        </CreateEditModal>
     );
 };
 

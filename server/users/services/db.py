@@ -31,6 +31,9 @@ def add_user_group(user: User, group: Group):
 def change_user_group(user: User, group: Group):
     current_group = get_user_current_group(user=user)
     if current_group:
-        remove_user_group(user=user, group=group)
+        remove_user_group(user=user, group=current_group)
 
     add_user_group(user=user, group=group)
+
+
+

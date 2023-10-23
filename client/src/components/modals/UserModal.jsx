@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Form from "react-bootstrap/Form";
-import BaseModal from "./BaseModal";
+import CreateEditModal from "./CreateEditModal";
 import {Dropdown, DropdownButton} from "react-bootstrap";
 import groupStore from "../../store/GroupStore";
 
@@ -35,7 +35,7 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
 
 
     return (
-        <BaseModal
+        <CreateEditModal
             heading={heading}
             show={show}
             onAction={handleSubmit}
@@ -48,7 +48,7 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
                     <Form.Control
                         required
                         type="username"
-                        placeholder="username"
+                        placeholder="Username"
                         autoFocus
                         value={currUsername}
                         onChange={e => setUsername(e.target.value)}
@@ -67,7 +67,7 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
                 </Form.Group>
             </Form>
 
-        </BaseModal>
+        </CreateEditModal>
     );
 };
 

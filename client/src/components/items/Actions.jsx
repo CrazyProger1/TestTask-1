@@ -13,7 +13,7 @@ const Actions = ({onEdit, onDelete, deleteInactive = false, ...props}) => {
             <Button
                 active={deleteInactive}
                 variant={deleteInactive ? "secondary" : "outline-danger"}
-                onClick={onDelete}>
+                onClick={deleteInactive ? null : onDelete}>
                 Delete
             </Button>
         </ButtonGroup>

@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-const BaseModal = ({heading, show, action, onAction, onCancel, children, ...props}) => {
+const CreateEditModal = ({heading, show, action, onAction, onCancel, children, ...props}) => {
     return (
         <Modal show={show} onHide={onCancel}>
             <Modal.Header closeButton>
@@ -23,4 +23,4 @@ const BaseModal = ({heading, show, action, onAction, onCancel, children, ...prop
     );
 };
 
-export default BaseModal;
+export default CreateEditModal;

@@ -6,6 +6,7 @@ import {Button, Table} from "react-bootstrap";
 import userStore from "../../store/UserStore";
 import UserItem from "../items/UserItem";
 import UserModal from "../modals/UserModal";
+import ErrorModal from "../modals/ErrorModal";
 
 
 const UserTable = observer(() => {
@@ -13,18 +14,24 @@ const UserTable = observer(() => {
         userStore.loadUsers();
     }, [])
 
-    const [modalState, setModalState] = useState({
+    const [createEditModalState, setCreateEditModalState] = useState({
         heading: "Create",
         action: "Create",
         show: false,
         user: null
     })
+    const [errorModalState, setErrorModalState] = useState({
+        heading: "Error",
+        errors: [],
+        show: false,
+    })
 
-    const hideModal = () =>
-        setModalState({...modalState, show: false})
+    // Modal
+    const hideCreateEditModal = () =>
+        setCreateEditModalState({...createEditModalState, show: false})
 
-    const showModal = (heading, action, user) =>
-        setModalState({
+    const showCreateEditModal = (heading, action, user) =>
+        setCreateEditModalState({
             show: true,
             user: user,
             heading: heading,
@@ -32,16 +39,25 @@ const UserTable = observer(() => {
         })
 
 
-    const showErrors = (errors) =>
-        setModalState({
-            ...modalState,
+    const showErrorModal = (errors) => {
+        setErrorModalState({
+            ...errorModalState,
+            errors: errors,
             show: true,
-            errors: errors
         })
+    }
+
+    const hideErrorModal = () => {
+        setErrorModalState({
+            ...errorModalState,
+            show: false,
+        })
+    }
 
 
+    // Handlers
     const handleEditButtonClick = (user) => {
-        showModal(
+        showCreateEditModal(
             "Edit",
             "Save Changes",
             user,
@@ -54,28 +70,28 @@ const UserTable = observer(() => {
 
 
     const handleCreateButtonClick = () => {
-        showModal(
+        showCreateEditModal(
             "Create",
             "Create",
         )
     }
 
 
-    const handleModalCancel = () =>
-        hideModal()
+    const handleCreateEditModalCancel = () =>
+        hideCreateEditModal()
 
 
-    const handleModalAction = (user) => {
-        hideModal()
+    const handleCreateEditModalAction = (user) => {
+        hideCreateEditModal()
 
-
-        if (modalState.heading === "Create")
-            userStore.createUser(user).catch(errors => showErrors(errors))
+        if (createEditModalState.heading === "Create")
+            userStore.createUser(user).catch(error => showErrorModal(error.errors))
         else
-            userStore.updateUser(user).catch(errors => showErrors(errors))
-
-
+            userStore.updateUser(user).catch(error => showErrorModal(error.errors))
     }
+
+    const handleCloseErrorModal = () =>
+        hideErrorModal()
 
 
     return (
@@ -106,9 +122,13 @@ const UserTable = observer(() => {
                 Add User
             </Button>
             <UserModal
-                {...modalState}
-                onCancel={handleModalCancel}
-                onAction={handleModalAction}
+                {...createEditModalState}
+                onCancel={handleCreateEditModalCancel}
+                onAction={handleCreateEditModalAction}
+            />
+            <ErrorModal
+                {...errorModalState}
+                onClose={handleCloseErrorModal}
             />
         </div>
 

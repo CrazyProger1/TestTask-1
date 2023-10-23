@@ -22,6 +22,7 @@ class UserStore {
                 if (result.status === 201) {
                     this.users.push(result.data)
                 }
+                throw {errors: result.data};
             })
     }
 

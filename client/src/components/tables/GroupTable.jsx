@@ -5,6 +5,7 @@ import GroupItem from "../items/GroupItem";
 import groupStore from "../../store/GroupStore";
 import {observer} from "mobx-react"
 import GroupModal from "../modals/GroupModal";
+import ErrorModal from "../modals/ErrorModal";
 
 
 const GroupTable = observer(() => {
@@ -31,13 +32,9 @@ const GroupTable = observer(() => {
         })
 
 
-    const showErrors = (errors) =>
-        setModalState({
-            ...modalState,
-            show: true,
-            errors: errors
-        })
+    const showErrorModal = (errors) => {
 
+    }
 
     const handleEditButtonClick = (group) => {
         showModal(
@@ -68,9 +65,9 @@ const GroupTable = observer(() => {
         hideModal()
 
         if (modalState.heading === "Create")
-            groupStore.createGroup(group).catch(errors => showErrors(errors))
+            groupStore.createGroup(group).catch(errors => showErrorModal(errors))
         else
-            groupStore.updateGroup(group).catch(errors => showErrors(errors))
+            groupStore.updateGroup(group).catch(errors => showErrorModal(errors))
 
 
     }
