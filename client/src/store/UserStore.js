@@ -21,8 +21,8 @@ class UserStore {
             .then(result => {
                 if (result.status === 201) {
                     this.users.push(result.data)
-                }
-                throw {errors: result.data};
+                } else
+                    throw {errors: result.data};
             })
     }
 
@@ -46,7 +46,8 @@ class UserStore {
                 let item = this.users.find(x => x.id === user.id);
                 let idx = this.users.indexOf(item)
                 this.users[idx] = result.data;
-            }
+            } else
+                throw {errors: result.data};
         })
     }
 

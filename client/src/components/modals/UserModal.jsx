@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Form from "react-bootstrap/Form";
 import CreateEditModal from "./CreateEditModal";
-import {Dropdown, DropdownButton} from "react-bootstrap";
 import groupStore from "../../store/GroupStore";
+import UserForm from "../forms/UserForm";
 
 const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...props}) => {
     const [currUsername, setUsername] = useState("")
@@ -30,10 +29,6 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
             })
 
 
-    const handleGroupChoose = (group) =>
-        setGroup({...group})
-
-
     return (
         <CreateEditModal
             heading={heading}
@@ -42,30 +37,12 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
             onCancel={onCancel}
             action={action}>
 
-            <Form>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        required
-                        type="username"
-                        placeholder="Username"
-                        autoFocus
-                        value={currUsername}
-                        onChange={e => setUsername(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Group</Form.Label>
-                    <DropdownButton id="dropdown-basic-button" title={currGroup.name}>
-                        {groupStore.groups.map(group =>
-                            <Dropdown.Item
-                                onClick={event => handleGroupChoose(group)}>
-                                {group.name}
-                            </Dropdown.Item>
-                        )}
-                    </DropdownButton>
-                </Form.Group>
-            </Form>
+            <UserForm
+                username={currUsername}
+                group={currGroup}
+                onChangeGroup={setGroup}
+                onChangeUsername={setUsername}
+            />
 
         </CreateEditModal>
     );

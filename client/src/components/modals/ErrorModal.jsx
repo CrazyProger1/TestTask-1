@@ -13,6 +13,8 @@ const ErrorModal = ({heading, show, errors, onClose, ...props}) => {
                 </div>
             );
 
+
+
     };
 
     return (

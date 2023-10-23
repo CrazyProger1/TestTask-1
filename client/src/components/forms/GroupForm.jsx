@@ -1,7 +1,6 @@
 import Form from "react-bootstrap/Form";
 
 const GroupForm = ({name, description, onChangeName, onChangeDesc}) => {
-
     return (
         <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

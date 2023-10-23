@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CreateEditModal from "./CreateEditModal";
-import GroupForm from "../foms/GroupForm";
+import GroupForm from "../forms/GroupForm";
 
 
 const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, ...props}) => {
