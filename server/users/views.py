@@ -9,6 +9,8 @@ from .serializers import (
     GroupSerializer
 )
 
+from .permissions import NoMembersInGroup
+
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -18,3 +20,4 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     queryset = get_all_groups()
+    permission_classes = (NoMembersInGroup,)

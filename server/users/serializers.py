@@ -5,7 +5,7 @@ from .services.db import (
     get_all_groups,
     change_user_group,
     get_user_current_group,
-    count_users_in_group
+    count_group_members
 )
 
 from .models import (
@@ -21,7 +21,7 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'user_count')
 
     def get_user_count(self, obj):
-        return count_users_in_group(obj)
+        return count_group_members(obj)
 
 
 class UserSerializer(serializers.ModelSerializer):

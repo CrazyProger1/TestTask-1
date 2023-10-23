@@ -105,7 +105,7 @@ Simple two-page website for administering users and groups.
 </p>
 
 <p align="center">
-<i>Now zero users is in the "TestGroup" so we can delete it.</i>
+<i>Now there are no users in "TestGroup", so we can delete it.</i>
 </p>
 
 

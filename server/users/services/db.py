@@ -12,7 +12,7 @@ def get_all_groups():
     return Group.objects.all()
 
 
-def count_users_in_group(group: Group) -> int:
+def count_group_members(group: Group) -> int:
     return group.users.count()
 
 
