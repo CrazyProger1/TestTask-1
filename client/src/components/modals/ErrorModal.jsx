@@ -3,7 +3,6 @@ import {Modal, Button} from "react-bootstrap";
 
 
 const ErrorModal = ({heading, show, errors, onClose, ...props}) => {
-
     const getErrors = () => {
         if (errors)
             return (
