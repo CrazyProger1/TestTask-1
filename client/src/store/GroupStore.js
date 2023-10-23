@@ -1,6 +1,6 @@
-import {action, makeObservable, observable} from "mobx";
-import {createGroup, deleteGroup, getGroups, updateGroup} from "../services/api/group";
-import {validateResponse} from "../utils/validateResponse";
+import {action, makeObservable, observable} from 'mobx';
+import {createGroup, deleteGroup, getGroups, updateGroup} from '../services/api/group';
+import {validateResponse} from '../utils/validateResponse';
 
 class GroupStore {
     groups = []

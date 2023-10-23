@@ -1,6 +1,6 @@
-import {action, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from 'mobx';
 import {createUser, deleteUser, getUsers, updateUser,} from '../services/api/user'
-import {validateResponse} from "../utils/validateResponse";
+import {validateResponse} from '../utils/validateResponse';
 
 class UserStore {
     users = []
@@ -51,9 +51,7 @@ class UserStore {
         await deleteUser(user.id)
             .then((result) => {
                 validateResponse(result, [204, 404])
-                this.users = this.users.filter((item) => {
-                    return user.id !== item.id;
-                })
+                this.users = this.users.filter((item) => user.id !== item.id)
             })
     }
 

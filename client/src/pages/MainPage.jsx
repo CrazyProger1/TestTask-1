@@ -1,14 +1,10 @@
 import React from 'react';
-import PageWrapper from "../components/PageWrapper";
+import PageWrapper from '../components/PageWrapper';
 
 
-const MainPage = () => {
+const MainPage = () =>
+    <PageWrapper>
+    </PageWrapper>
 
-    return (
-        <PageWrapper>
-
-        </PageWrapper>
-    );
-};
 
 export default MainPage;

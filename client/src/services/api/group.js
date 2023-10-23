@@ -1,10 +1,10 @@
-import {makeRequest} from "./api";
+import {makeRequest} from './api';
 
 
 export const createGroup = async (group) => {
     return await makeRequest({
-            method: "POST",
-            url: "/groups/",
+            method: 'POST',
+            url: '/groups/',
             data: group
         }
     )
@@ -12,14 +12,14 @@ export const createGroup = async (group) => {
 
 export const getGroups = async (offset, limit) => {
     return await makeRequest({
-        method: "GET",
-        url: "/groups/"
+        method: 'GET',
+        url: '/groups/'
     })
 }
 
 export const updateGroup = async (id, group) => {
     return await makeRequest({
-        method: "PUT",
+        method: 'PUT',
         url: `/groups/${id}/`,
         data: group
     })
@@ -27,7 +27,7 @@ export const updateGroup = async (id, group) => {
 
 export const deleteGroup = async (id) => {
     return await makeRequest({
-        method: "DELETE",
+        method: 'DELETE',
         url: `/groups/${id}/`
     })
 }

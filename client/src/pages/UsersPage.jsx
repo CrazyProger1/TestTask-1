@@ -1,14 +1,11 @@
-import PageWrapper from "../components/PageWrapper";
-import UserTable from "../components/tables/UserTable";
+import PageWrapper from '../components/PageWrapper';
+import UserTable from '../components/tables/UserTable';
 
 
+const UsersPage = () =>
+    <PageWrapper>
+        <UserTable/>
+    </PageWrapper>
 
-const UsersPage = () => {
-    return (
-        <PageWrapper>
-            <UserTable/>
-        </PageWrapper>
-    );
-};
 
 export default UsersPage;

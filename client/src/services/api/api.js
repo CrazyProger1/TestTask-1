@@ -1,13 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
+import {BASE_URL, TIMEOUT} from "../../constants/config";
 
 
 const configuredAxios = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/v1/',
-    timeout: 1000,
+    baseURL: BASE_URL,
+    timeout: TIMEOUT,
 })
 
-export const formResponse = (response) => {
-    if (response === undefined)
+const formResponse = (response) => {
+    if (!response)
         return null;
 
 

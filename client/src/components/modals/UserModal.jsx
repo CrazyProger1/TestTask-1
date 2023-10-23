@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import CreateEditModal from "./CreateEditModal";
-import groupStore from "../../store/GroupStore";
-import UserForm from "../forms/UserForm";
+import CreateEditModal from './CreateEditModal';
+import groupStore from '../../store/GroupStore';
+import UserForm from '../forms/UserForm';
 
 const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...props}) => {
     const [currUsername, setUsername] = useState("")
