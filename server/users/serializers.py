@@ -4,7 +4,8 @@ from rest_framework import serializers
 from .services.db import (
     get_all_groups,
     change_user_group,
-    get_user_current_group
+    get_user_current_group,
+    count_users_in_group
 )
 
 from .models import (
@@ -13,9 +14,14 @@ from .models import (
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    user_count = serializers.SerializerMethodField()
+
     class Meta:
         model = Group
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'user_count')
+
+    def get_user_count(self, obj):
+        return count_users_in_group(obj)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,20 +31,21 @@ class UserSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
-    created = serializers.SerializerMethodField()
+    created = serializers.DateTimeField(
+        format='%d.%m.%Y',
+        source='date_joined',
+        read_only=True
+    )
 
     class Meta:
         model = User
-        fields = ('username', 'created', 'group')
-
-    def get_created(self, obj):
-        return obj.date_joined
+        fields = ('id', 'username', 'created', 'group')
 
     def to_representation(self, user: User):
         data = super(UserSerializer, self).to_representation(user)
         group = get_user_current_group(user)
         if group:
-            data['group'] = group.pk
+            data['group'] = GroupSerializer(group).data
         return data
 
     def create(self, validated_data):
