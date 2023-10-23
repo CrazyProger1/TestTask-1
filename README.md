@@ -2,7 +2,27 @@
 
 Test task for VNV Solutions.
 
-Simple two-page website for administering users and groups.
+Simple two-page website to administrate users and groups.
+
+## Server
+
+### Technologies
+
+- Django
+- Django REST framework
+- Docker
+
+To see more details: [server](server)
+
+## Client
+
+### Technologies
+
+- React
+- React Bootstrap
+- MobX
+
+To see more details: [client](client)
 
 ## Review
 
@@ -118,24 +138,3 @@ Simple two-page website for administering users and groups.
 <p align="center">
 <i>Group table without "TestGroup".</i>
 </p>
-
-## Server
-
-### Technologies
-
-- Django
-- Django REST framework
-- Docker
-
-To see more details: [server](server)
-
-## Client
-
-### Technologies
-
-- React
-- React Bootstrap
-- MobX
-
-To see more details: [client](client)
-
