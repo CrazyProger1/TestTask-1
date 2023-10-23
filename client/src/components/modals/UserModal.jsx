@@ -6,6 +6,7 @@ import UserForm from "../forms/UserForm";
 const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...props}) => {
     const [currUsername, setUsername] = useState("")
     const [currGroup, setGroup] = useState({})
+    const [valid, setValid] = useState(false)
 
     useEffect(() => {
         groupStore.loadGroups();
@@ -20,13 +21,15 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
 
     }, [user])
 
-    const handleSubmit = () =>
-        onAction(
-            {
-                ...user,
-                username: currUsername,
-                group: currGroup.id
-            })
+    const handleSubmit = () => {
+        if (valid)
+            onAction(
+                {
+                    ...user,
+                    username: currUsername,
+                    group: currGroup.id
+                })
+    }
 
 
     return (
@@ -42,6 +45,7 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
                 group={currGroup}
                 onChangeGroup={setGroup}
                 onChangeUsername={setUsername}
+                onSetValidity={setValid}
             />
 
         </CreateEditModal>

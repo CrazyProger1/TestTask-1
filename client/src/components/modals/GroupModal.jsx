@@ -6,6 +6,8 @@ import GroupForm from "../forms/GroupForm";
 const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, ...props}) => {
     const [currName, setName] = useState("")
     const [currDesc, setDesc] = useState("")
+    const [valid, setValid] = useState(false)
+
 
     useEffect(() => {
         if (group) {
@@ -16,13 +18,15 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
     }, [group])
 
     const handleSubmit = (event) => {
-        onAction(
-            {
-                ...group,
-                name: currName,
-                description: currDesc
-            })
+        if (valid)
+            onAction(
+                {
+                    ...group,
+                    name: currName,
+                    description: currDesc
+                })
     }
+
 
     return (
         <CreateEditModal
@@ -36,6 +40,7 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
                 description={currDesc}
                 onChangeDesc={setDesc}
                 onChangeName={setName}
+                onSetValidity={setValid}
             />
         </CreateEditModal>
     );
