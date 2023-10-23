@@ -2,11 +2,6 @@ from django.urls import reverse
 from rest_framework.test import APIRequestFactory, APITestCase
 from rest_framework import status
 
-from .models import (
-    User,
-    Group
-)
-
 
 class GroupTests(APITestCase):
     URL = reverse('group-list')
