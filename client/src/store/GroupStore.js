@@ -21,15 +21,15 @@ class GroupStore {
     async createGroup(group) {
         await createGroup(group)
             .then(result => {
-                validateResponse(result, [201])
-                this.groups.push(result.data)
+                validateResponse(result, [201]);
+                this.groups.push(result.data);
             })
     }
 
     async loadGroups(page = 0, pageSize = 20) {
         await getGroups(page * pageSize, pageSize)
             .then(result => {
-                validateResponse(result, [200])
+                validateResponse(result, [200]);
                 this.groups = result.data.results;
             })
     }
@@ -42,7 +42,7 @@ class GroupStore {
         ).then((result) => {
             validateResponse(result, [200])
             let item = this.groups.find(x => x.id === group.id);
-            let idx = this.groups.indexOf(item)
+            let idx = this.groups.indexOf(item);
             this.groups[idx] = result.data;
 
         })
@@ -51,11 +51,8 @@ class GroupStore {
     async deleteGroup(group) {
         await deleteGroup(group.id)
             .then((result) => {
-                validateResponse(result, [204, 404])
-
-                this.groups = this.groups.filter((item) => {
-                    return group.id !== item.id;
-                })
+                validateResponse(result, [204, 404]);
+                this.groups = this.groups.filter((item) => group.id !== item.id);
             })
     }
 }

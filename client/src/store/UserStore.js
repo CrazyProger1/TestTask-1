@@ -20,15 +20,15 @@ class UserStore {
     async createUser(user) {
         await createUser(user)
             .then(result => {
-                validateResponse(result, [201])
-                this.users.push(result.data)
+                validateResponse(result, [201]);
+                this.users.push(result.data);
             })
     }
 
     async loadUsers(page = 0, pageSize = 20) {
         await getUsers(page * pageSize, pageSize)
             .then(result => {
-                validateResponse(result, [200])
+                validateResponse(result, [200]);
                 this.users = result.data.results;
             })
     }
@@ -41,7 +41,7 @@ class UserStore {
         ).then((result) => {
             validateResponse(result, [200])
             let item = this.users.find(x => x.id === user.id);
-            let idx = this.users.indexOf(item)
+            let idx = this.users.indexOf(item);
             this.users[idx] = result.data;
 
         })
@@ -50,8 +50,8 @@ class UserStore {
     async deleteUser(user) {
         await deleteUser(user.id)
             .then((result) => {
-                validateResponse(result, [204, 404])
-                this.users = this.users.filter((item) => user.id !== item.id)
+                validateResponse(result, [204, 404]);
+                this.users = this.users.filter((item) => user.id !== item.id);
             })
     }
 

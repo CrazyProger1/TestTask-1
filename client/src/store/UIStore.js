@@ -8,7 +8,6 @@ class UIStore {
             {
                 currentPage: observable,
                 setPage: action
-
             }
         )
     }
