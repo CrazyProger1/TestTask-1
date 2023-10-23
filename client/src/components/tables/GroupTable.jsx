@@ -10,7 +10,7 @@ import ErrorModal from "../modals/ErrorModal";
 
 const GroupTable = observer(() => {
     useEffect(() => {
-        groupStore.loadGroups();
+        groupStore.loadGroups().catch(error => showErrorModal(error.errors));
     }, [])
 
     const [createEditModalState, setCreateEditModalState] = useState({

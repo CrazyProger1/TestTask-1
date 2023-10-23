@@ -7,6 +7,10 @@ const configuredAxios = axios.create({
 })
 
 export const formResponse = (response) => {
+    if (response === undefined)
+        return null;
+
+
     return {
         status: response.status,
         data: response.data

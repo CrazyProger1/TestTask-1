@@ -11,7 +11,7 @@ import ErrorModal from "../modals/ErrorModal";
 
 const UserTable = observer(() => {
     useEffect(() => {
-        userStore.loadUsers();
+        userStore.loadUsers().catch(error => showErrorModal(error.errors));
     }, [])
 
     const [createEditModalState, setCreateEditModalState] = useState({
