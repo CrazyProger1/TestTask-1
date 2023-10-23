@@ -10,13 +10,13 @@ from .constants import (
 class Group(models.Model):
     name = models.CharField(
         max_length=GROUP_NAME_LENGTH,
-        verbose_name='Group name',
+        verbose_name='name',
         null=False,
         unique=True
     )
     description = models.CharField(
         max_length=GROUP_DESCRIPTION_LENGTH,
-        verbose_name='Group description',
+        verbose_name='description',
         null=False
     )
 
