@@ -3,7 +3,7 @@ import {Modal, Button} from "react-bootstrap";
 
 
 const ErrorModal = ({heading, show, errors, onClose, ...props}) => {
-    const getErrors = () => {
+    const getMessage = () => {
         if (errors)
             return (
                 <div>
@@ -23,7 +23,7 @@ const ErrorModal = ({heading, show, errors, onClose, ...props}) => {
                 <Modal.Title>{heading}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {getErrors()}
+                {getMessage()}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={onClose}>

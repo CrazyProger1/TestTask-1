@@ -11,7 +11,8 @@ import ErrorModal from "../modals/ErrorModal";
 
 const UserTable = observer(() => {
     useEffect(() => {
-        userStore.loadUsers().catch(error => showErrorModal(error.errors));
+        userStore.loadUsers()
+            .catch(error => showErrorModal(error.errors));
     }, [])
 
     const [createEditModalState, setCreateEditModalState] = useState({
@@ -27,9 +28,6 @@ const UserTable = observer(() => {
     })
 
     // Modal
-    const hideCreateEditModal = () =>
-        setCreateEditModalState({...createEditModalState, show: false})
-
     const showCreateEditModal = (heading, action, user) =>
         setCreateEditModalState({
             show: true,
@@ -37,6 +35,9 @@ const UserTable = observer(() => {
             heading: heading,
             action: action,
         })
+
+    const hideCreateEditModal = () =>
+        setCreateEditModalState({...createEditModalState, show: false})
 
 
     const showErrorModal = (errors) => {
@@ -67,6 +68,7 @@ const UserTable = observer(() => {
 
     const handleDeleteButtonClick = (user) =>
         userStore.deleteUser(user)
+            .catch(error => showErrorModal(error.errors));
 
 
     const handleCreateButtonClick = () => {
@@ -77,17 +79,15 @@ const UserTable = observer(() => {
     }
 
 
-    const handleCreateEditModalCancel = () =>
-        hideCreateEditModal()
-
-
     const handleCreateEditModalAction = (user) => {
         hideCreateEditModal()
 
         if (createEditModalState.heading === "Create")
-            userStore.createUser(user).catch(error => showErrorModal(error.errors))
+            userStore.createUser(user)
+                .catch(error => showErrorModal(error.errors))
         else
-            userStore.updateUser(user).catch(error => showErrorModal(error.errors))
+            userStore.updateUser(user)
+                .catch(error => showErrorModal(error.errors))
     }
 
     const handleCloseErrorModal = () =>
@@ -123,7 +123,7 @@ const UserTable = observer(() => {
             </Button>
             <UserModal
                 {...createEditModalState}
-                onCancel={handleCreateEditModalCancel}
+                onCancel={hideCreateEditModal}
                 onAction={handleCreateEditModalAction}
             />
             <ErrorModal

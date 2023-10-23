@@ -9,7 +9,8 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
     const [valid, setValid] = useState(false)
 
     useEffect(() => {
-        groupStore.loadGroups();
+        groupStore.loadGroups()
+            .catch(error => {});
     }, [])
 
 
@@ -22,7 +23,7 @@ const UserModal = ({heading, show, action, user, onAction, onCancel, errors, ...
     }, [user])
 
     const handleSubmit = () => {
-        if (valid)
+        if (valid && onAction)
             onAction(
                 {
                     ...user,

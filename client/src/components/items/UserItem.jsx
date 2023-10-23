@@ -1,5 +1,5 @@
 import React from 'react';
-import Actions from "./Actions";
+import EditDeleteActions from "./EditDeleteActions";
 
 const UserItem = ({number, user, onEdit, onDelete, ...props}) => {
     return (
@@ -9,7 +9,7 @@ const UserItem = ({number, user, onEdit, onDelete, ...props}) => {
             <td>{user.created}</td>
             <td>{user.group === undefined ? null : user.group.name}</td>
             <td>
-                <Actions
+                <EditDeleteActions
                     onEdit={() => onEdit(user)}
                     onDelete={() => onDelete(user)}
                 />

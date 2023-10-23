@@ -59,6 +59,7 @@ Simple two-page website for administering users and groups.
 
 - Django
 - Django REST framework
+- Docker
 
 To see more details: [server](server)
 
@@ -68,6 +69,7 @@ To see more details: [server](server)
 
 - React
 - React Bootstrap
+- MobX
 
 To see more details: [client](client)
 

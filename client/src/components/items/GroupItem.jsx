@@ -1,5 +1,5 @@
 import React from 'react';
-import Actions from "./Actions";
+import EditDeleteActions from "./EditDeleteActions";
 
 const GroupItem = ({number, group, onEdit, onDelete, ...props}) => {
     return (
@@ -8,7 +8,7 @@ const GroupItem = ({number, group, onEdit, onDelete, ...props}) => {
             <td>{group.name}</td>
             <td>{group.description}</td>
             <td>
-                <Actions
+                <EditDeleteActions
                     onEdit={() => onEdit(group)}
                     onDelete={() => onDelete(group)}
                     deleteInactive={group.user_count > 0}

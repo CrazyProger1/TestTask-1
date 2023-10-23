@@ -18,7 +18,7 @@ const GroupModal = ({heading, show, action, group, onAction, onCancel, errors, .
     }, [group])
 
     const handleSubmit = (event) => {
-        if (valid)
+        if (valid && onAction)
             onAction(
                 {
                     ...group,

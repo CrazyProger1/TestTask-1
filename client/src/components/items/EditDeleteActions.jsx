@@ -2,7 +2,7 @@ import React from 'react';
 import Button from "react-bootstrap/Button";
 import {ButtonGroup} from "react-bootstrap";
 
-const Actions = ({onEdit, onDelete, deleteInactive = false, ...props}) => {
+const EditDeleteActions = ({onEdit, onDelete, deleteInactive = false, ...props}) => {
     return (
         <ButtonGroup size="sm" className="mb-2">
             <Button
@@ -20,4 +20,4 @@ const Actions = ({onEdit, onDelete, deleteInactive = false, ...props}) => {
     );
 };
 
-export default Actions;
+export default EditDeleteActions;
