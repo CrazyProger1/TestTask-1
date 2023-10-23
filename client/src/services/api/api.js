@@ -1,13 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
+import {BASE_URL, TIMEOUT} from '../../constants/config';
 
 
 const configuredAxios = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/v1/',
-    timeout: 1000,
+    baseURL: BASE_URL,
+    timeout: TIMEOUT,
 })
 
-export const formResponse = (response) => {
-    if (response === undefined)
+const formResponse = (response) => {
+    if (!response)
         return null;
 
 
@@ -17,13 +18,9 @@ export const formResponse = (response) => {
     }
 }
 
-export const makeRequest = async ({...props}) => {
-    return await configuredAxios.request({...props})
-        .then(response => {
-            return formResponse(response);
-        })
-        .catch(error => {
-            return formResponse(error.response);
-        })
-}
+export const makeRequest = async ({...props}) =>
+    await configuredAxios.request({...props})
+        .then(response => formResponse(response))
+        .catch(error => formResponse(error.response))
+
 

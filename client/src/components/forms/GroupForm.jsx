@@ -1,22 +1,22 @@
-import Form from "react-bootstrap/Form";
-import {useEffect, useRef} from "react";
+import Form from 'react-bootstrap/Form';
+import {useEffect, useRef} from 'react';
 
 
 const GroupForm = ({name, description, onChangeName, onChangeDesc, onSetValidity}) => {
     const formRef = useRef(null)
 
     useEffect(() => {
-        onSetValidity(validate())
+        onSetValidity(validate());
     })
 
-    
+
     const validate = () => {
-        return formRef.current.checkValidity()
+        return formRef.current.checkValidity();
     }
 
     const handleChange = () => {
         if (onSetValidity !== undefined)
-            onSetValidity(validate())
+            onSetValidity(validate());
     }
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,12 +25,12 @@ const GroupForm = ({name, description, onChangeName, onChangeDesc, onSetValidity
 
     return (
         <Form ref={formRef} noValidate validated={true} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="exampleForm.validationCustom01">
+            <Form.Group className='mb-3' controlId='validationCustom01'>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                     required
-                    type="name"
-                    placeholder="Name"
+                    type='name'
+                    placeholder='Name'
                     autoFocus
                     value={name}
                     onChange={e => {
@@ -40,14 +40,14 @@ const GroupForm = ({name, description, onChangeName, onChangeDesc, onSetValidity
                 />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.validationCustom02">
+            <Form.Group className='mb-3' controlId='validationCustom02'>
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                     required
-                    type="text"
+                    type='text'
                     rows={3}
-                    as="textarea"
-                    placeholder="Description"
+                    as='textarea'
+                    placeholder='Description'
                     autoFocus
                     value={description}
                     onChange={e => {

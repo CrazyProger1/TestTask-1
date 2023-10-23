@@ -1,31 +1,32 @@
 import React, {useEffect, useState} from 'react';
 
-import {observer} from "mobx-react"
-import {Button, Table} from "react-bootstrap";
+import {observer} from 'mobx-react'
+import {Button, Table} from 'react-bootstrap';
 
-import userStore from "../../store/UserStore";
-import UserItem from "../items/UserItem";
-import UserModal from "../modals/UserModal";
-import ErrorModal from "../modals/ErrorModal";
+import userStore from '../../store/UserStore';
+import UserItem from '../items/UserItem';
+import UserModal from '../modals/UserModal';
+import ErrorModal from '../modals/ErrorModal';
 
 
 const UserTable = observer(() => {
+    const [createEditModalState, setCreateEditModalState] = useState({
+        heading: 'Create',
+        action: 'Create',
+        show: false,
+        user: null
+    })
+    const [errorModalState, setErrorModalState] = useState({
+        heading: 'Error',
+        errors: [],
+        show: false,
+    })
+
     useEffect(() => {
         userStore.loadUsers()
             .catch(error => showErrorModal(error.errors));
     }, [])
 
-    const [createEditModalState, setCreateEditModalState] = useState({
-        heading: "Create",
-        action: "Create",
-        show: false,
-        user: null
-    })
-    const [errorModalState, setErrorModalState] = useState({
-        heading: "Error",
-        errors: [],
-        show: false,
-    })
 
     // Modal
     const showCreateEditModal = (heading, action, user) =>
@@ -90,9 +91,6 @@ const UserTable = observer(() => {
                 .catch(error => showErrorModal(error.errors))
     }
 
-    const handleCloseErrorModal = () =>
-        hideErrorModal()
-
 
     return (
         <div>
@@ -128,7 +126,7 @@ const UserTable = observer(() => {
             />
             <ErrorModal
                 {...errorModalState}
-                onClose={handleCloseErrorModal}
+                onClose={hideErrorModal}
             />
         </div>
 

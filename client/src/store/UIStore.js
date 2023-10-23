@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from 'mobx';
 
 class UIStore {
     currentPage = '/'
@@ -8,7 +8,6 @@ class UIStore {
             {
                 currentPage: observable,
                 setPage: action
-
             }
         )
     }

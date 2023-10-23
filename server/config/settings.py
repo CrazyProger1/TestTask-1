@@ -19,7 +19,7 @@ env = environ.Env(
     TIME_ZONE=(str, 'UTC'),
     USE_I18N=(bool, False),
     USE_TZ=(bool, False),
-
+    CONTACT_EMAIL=(str, 'crazyproger1@gmail.com')
 )
 
 # Checks if env variables are not defined. If not, assign values from .env
@@ -38,8 +38,19 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
+# App info
+APP = 'Test-Task'
+VER = VERSION = __version__ = '0.0.1'
+
+# API
+DESCRIPTIONS = 'Test-Task API docs'
+
+# Author
+CONTACT_EMAIL = env('CONTACT_EMAIL')
+
 ALLOWED_HOSTS = ['*']
 
+# CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition

@@ -1,30 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Table} from "react-bootstrap";
-
-import GroupItem from "../items/GroupItem";
-import groupStore from "../../store/GroupStore";
-import {observer} from "mobx-react"
-import GroupModal from "../modals/GroupModal";
-import ErrorModal from "../modals/ErrorModal";
+import {observer} from 'mobx-react'
+import GroupModal from '../modals/GroupModal';
+import ErrorModal from '../modals/ErrorModal';
+import GroupItem from '../items/GroupItem';
+import groupStore from '../../store/GroupStore';
 
 
 const GroupTable = observer(() => {
-    useEffect(() => {
-        groupStore.loadGroups()
-            .catch(error => showErrorModal(error.errors));
-    }, [])
-
     const [createEditModalState, setCreateEditModalState] = useState({
-        heading: "Create",
-        action: "Create",
+        heading: 'Create',
+        action: 'Create',
         show: false,
         group: null
     })
     const [errorModalState, setErrorModalState] = useState({
-        heading: "Error",
+        heading: 'Error',
         errors: [],
         show: false,
     })
+
+    useEffect(() => {
+        groupStore.loadGroups()
+            .catch(error => showErrorModal(error.errors));
+    }, [])
 
 
     // Modals
@@ -88,8 +87,6 @@ const GroupTable = observer(() => {
         else
             groupStore.updateGroup(group)
                 .catch(error => showErrorModal(error.errors))
-
-
     }
 
 

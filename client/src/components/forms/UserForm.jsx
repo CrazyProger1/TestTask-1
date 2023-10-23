@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
-import Form from "react-bootstrap/Form";
-import {Dropdown, DropdownButton} from "react-bootstrap";
-import groupStore from "../../store/GroupStore";
+import Form from 'react-bootstrap/Form';
+import {Dropdown, DropdownButton} from 'react-bootstrap';
+import groupStore from '../../store/GroupStore';
 
 const UserForm = ({username, group, onChangeUsername, onChangeGroup, onSetValidity, ...props}) => {
     const formRef = useRef(null)
@@ -10,18 +10,16 @@ const UserForm = ({username, group, onChangeUsername, onChangeGroup, onSetValidi
         onSetValidity(validate())
     })
 
-    const validateGroup = () => {
-        return group !== undefined && Object.keys(group).length !== 0;
-    }
+    const validateGroup = () =>
+        group && Object.keys(group).length !== 0;
 
 
-    const validate = () => {
-        return formRef.current.checkValidity() && validateGroup()
-    }
+    const validate = () =>
+        formRef.current.checkValidity() && validateGroup()
 
 
     const handleChange = () => {
-        if (onSetValidity !== undefined)
+        if (onSetValidity)
             onSetValidity(validate())
     }
     const handleSubmit = (event) => {
@@ -31,12 +29,12 @@ const UserForm = ({username, group, onChangeUsername, onChangeGroup, onSetValidi
 
     return (
         <Form ref={formRef} noValidate validated={true} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="validationCustomUsername">
+            <Form.Group className='mb-3' controlId='validationCustomUsername'>
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                     required
-                    type="username"
-                    placeholder="Username"
+                    type='username'
+                    placeholder='Username'
                     autoFocus
                     value={username}
                     onChange={e => {
@@ -46,9 +44,9 @@ const UserForm = ({username, group, onChangeUsername, onChangeGroup, onSetValidi
                 />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="validationCustomGroup">
+            <Form.Group className='mb-3' controlId='validationCustomGroup'>
                 <Form.Label>Group</Form.Label>
-                <DropdownButton id="dropdown-basic-button" title={group.name}>
+                <DropdownButton id='dropdown-basic-button' title={group.name}>
                     {groupStore.groups.map(group =>
                         <Dropdown.Item
                             onClick={event => {

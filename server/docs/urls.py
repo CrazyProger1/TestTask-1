@@ -1,13 +1,14 @@
 from django.urls import re_path
+from django.conf import settings
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title='API',
+        title=f'{settings.APP} API',
         default_version='v1',
-        description='Test Task API docs',
-        contact=openapi.Contact(email='crazyproger1@gmail.com'),
+        description=settings.DESCRIPTIONS,
+        contact=openapi.Contact(email=settings.CONTACT_EMAIL),
         license=openapi.License(name='MIT License'),
     ),
     public=True,
