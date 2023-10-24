@@ -40,7 +40,7 @@ Now it's available on [page](http://127.0.0.1:8000/).
 
 ### Docker
 
-Also, you have opportunity to run project via Docker.
+Also, you have opportunity to run the server using Docker.
 
 **Note:** _Before starting, make sure you have [Docker](https://www.docker.com/) installed and running._
 
