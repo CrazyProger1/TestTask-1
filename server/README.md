@@ -38,6 +38,24 @@ python ./manage.py runserver
 
 Now it's available on [page](http://127.0.0.1:8000/).
 
+### Docker
+
+Also, you have opportunity to run project via Docker.
+
+**Note:** _Before starting, make sure you have [Docker](https://www.docker.com/) installed and running._
+
+Firstly, build an image:
+
+```shell
+docker build -t test-task .
+```
+
+Then, you can run the server:
+
+```shell
+docker run -p 8000:8000 test-task
+```
+
 ## Docs
 
 To see the docs, run the server.
